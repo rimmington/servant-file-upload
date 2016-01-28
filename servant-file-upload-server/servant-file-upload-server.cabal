@@ -1,0 +1,33 @@
+name:                servant-file-upload-server
+version:             0.1.0.0
+synopsis:            Initial project template from stack
+description:         Please see README.md
+homepage:            http://github.com/rimmington/servant-file-upload#readme
+license:             BSD3
+license-file:        ../LICENSE
+maintainer:          Rhys <rhysadams@swin.edu.au>
+copyright:           (c) Swinburne Software Innovation Lab 2015
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Servant.FileUpload.Server
+  build-depends:       base >= 4.7 && < 5
+                     , servant-file-upload
+                     , servant-server
+                     , bytestring
+                     , text
+                     , aeson
+                     , resourcet
+                     , wai-extra
+                     , microlens
+                     , microlens-th
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+
+source-repository head
+  type:     git
+  location: https://github.com/rimmington/servant-file-upload
