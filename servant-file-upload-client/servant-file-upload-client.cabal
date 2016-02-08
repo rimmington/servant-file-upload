@@ -1,4 +1,4 @@
-name:                ghcjs-servant-file-upload-client
+name:                servant-file-upload-client
 version:             0.1.0.0
 synopsis:            Initial project template from stack
 description:         Please see README.md
@@ -16,16 +16,23 @@ library
   hs-source-dirs:      src
   exposed-modules:     Servant.FileUpload.Client
   build-depends:       base >= 4.7 && < 5
-                     , ghcjs-base
                      , servant-file-upload
-                     , bytestring
-                     , text
-                     , aeson
                      , servant
-                     , ghcjs-servant-client
-                     , deepseq
   default-language:    Haskell2010
   ghc-options:         -Wall
+
+  if impl(ghcjs)
+    build-depends:     ghcjs-base
+                     , ghcjs-servant-client
+                     , deepseq
+                     , aeson
+                     , bytestring
+                     , text
+    cpp-options:       -DOnGhcjs
+    other-modules:     Servant.FileUpload.Client.GHCJS
+  else
+    build-depends:     servant-client
+    other-modules:     Servant.FileUpload.Client.GHC
 
 source-repository head
   type:     git

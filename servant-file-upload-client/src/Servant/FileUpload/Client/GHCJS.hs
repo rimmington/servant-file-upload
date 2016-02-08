@@ -7,8 +7,9 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Servant.FileUpload.Client where
+module Servant.FileUpload.Client.GHCJS where
 
 import Control.DeepSeq (NFData)
 import Data.Aeson (ToJSON, encode)
