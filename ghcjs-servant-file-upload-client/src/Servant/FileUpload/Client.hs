@@ -18,15 +18,14 @@ import Data.Text (unpack)
 import Data.Text.Encoding (decodeUtf8)
 import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic)
-import GHCJS.Marshal (toJSRef)
-import GHCJS.Types (JSRef)
+import GHCJS.Types (JSVal)
 import Servant.API ((:>))
 import Servant.Client (HasClient (..))
 import Servant.Common.Req (FormDataProp (..), setRQFormData)
 import Servant.FileUpload.API
 import Servant.FileUpload.Internal (primaryBodyKey)
 
-data File = File String JSRef String
+data File = File String JSVal String
           deriving (Generic, NFData)
 
 instance (MultiPartData a, ToJSON (PrimaryBody a), HasClient sublayout)
@@ -45,8 +44,8 @@ instance (MultiPartData a, ToJSON (PrimaryBody a), HasClient sublayout)
         mkFDB (File n r fn) = FormDataBlob n r fn
         encodeStrict = toStrict . encode
 
-asFile :: String -> JSRef -> IO File
-asFile n ref = File n ref . JSS.unpack <$> js_fileName ref
+asFile :: String -> JSVal -> IO File
+asFile n val = File n val . JSS.unpack <$> js_fileName val
 
 foreign import javascript unsafe "$1.name"
-    js_fileName :: JSRef -> IO JSS.JSString
+    js_fileName :: JSVal -> IO JSS.JSString
