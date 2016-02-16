@@ -22,6 +22,8 @@ library
                      , text
                      , aeson
                      , resourcet
+                     , http-types
+                     , wai
                      , wai-extra
                      , microlens
                      , microlens-th
