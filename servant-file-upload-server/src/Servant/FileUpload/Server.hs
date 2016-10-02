@@ -30,6 +30,7 @@ import Servant.FileUpload.Internal (primaryBodyKey)
 import Servant.Server.Internal (RouteMismatch (..), failWith)
 
 data UploadedFile = UploadedFile { _inputName :: ByteString, _fileInfo :: FileInfo FilePath }
+                  deriving (Show, Eq)
 
 $(makeLenses ''UploadedFile)
 
