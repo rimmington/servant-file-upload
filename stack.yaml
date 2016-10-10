@@ -1,16 +1,33 @@
 # For more information, see: http://docs.haskellstack.org/en/stable/yaml_configuration.html
 
 # Specifies the GHC version and set of packages available (e.g., lts-3.5, nightly-2015-09-21, ghc-7.10.2)
-resolver: lts-3.9
+resolver: lts-7.2
+compiler: ghcjs-0.2.1.9007002_ghc-8.0.1
+compiler-check: match-exact
+setup-info:
+  ghcjs:
+    source:
+      ghcjs-0.2.1.9007002_ghc-8.0.1:
+          url: http://ghcjs.tolysz.org/ghc-8.0-2016-10-01-lts-7.2-9007002.tar.gz
+          sha1: a41ae415328e2b257d40724d13d1386390c26322
 
 # Local packages, usually specified by relative directory name
 packages:
 - servant-file-upload
 - servant-file-upload-server
 - servant-file-upload-client
+- location:
+    git: https://github.com/rimmington/servant
+    commit: 5a4a2a2e13707b0288b2b53275b138803e112c62
+  extra-dep: true
+  subdirs:
+  - servant-client
 
 # Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
-extra-deps: []
+extra-deps:
+- servant-0.9
+- servant-server-0.9
+- http-api-data-0.3.1
 
 # Override default flag values for local packages and extra-deps
 flags: {}

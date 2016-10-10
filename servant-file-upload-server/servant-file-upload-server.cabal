@@ -21,6 +21,7 @@ library
                      , bytestring
                      , text
                      , aeson
+                     , mtl
                      , resourcet
                      , http-types
                      , wai

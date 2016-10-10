@@ -20,24 +20,24 @@ import Data.Text.Encoding (decodeUtf8)
 import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic)
 import GHCJS.Types (JSVal)
+import JavaScript.FormData (FormDataProp (..))
 import Servant.API ((:>))
 import Servant.Client (HasClient (..))
-import Servant.Common.Req (FormDataProp (..), setRQFormData)
+import Servant.Client.GHCJS (setRQFormData)
 import Servant.FileUpload.API
 import Servant.FileUpload.Internal (primaryBodyKey)
 
 data File = File String JSVal String
           deriving (Generic, NFData)
 
-instance (MultiPartData a, ToJSON (PrimaryBody a), HasClient sublayout)
-      => HasClient (MultiPartBody a :> sublayout) where
+instance (MultiPartData a, ToJSON (PrimaryBody a), HasClient api)
+      => HasClient (MultiPartBody a :> api) where
 
-    type Client (MultiPartBody a :> sublayout) = a File -> Client sublayout
+    type Client (MultiPartBody a :> api) = a File -> Client api
 
-    clientWithRoute Proxy req baseurl body =
-        clientWithRoute (Proxy :: Proxy sublayout)
+    clientWithRoute Proxy req body =
+        clientWithRoute (Proxy :: Proxy api)
                         (setRQFormData fd req)
-                        baseurl
       where
         (pb, fs) = toMultiPartData body
         pbe = unpack . decodeUtf8 $ encodeStrict pb

@@ -16,4 +16,4 @@ instance (HasClient sublayout)
 
     type Client (MultiPartBody a :> sublayout) = Void -> Client sublayout
 
-    clientWithRoute Proxy req baseurl void = absurd void
+    clientWithRoute Proxy req void = absurd void
